@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venz Xiters</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            background: #1e1e1e;
+            align-items: center;
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, #6a11cb, #2575fc);
+            background-size: 300% 300%;
+            animation: gradientAnimation 8s infinite;
+            z-index: -1;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            max-width: 400px;
+            width: 90%;
+            animation: fadeIn 1s ease-in-out;
+            margin-bottom: 30px; /* Spacing to avoid contact button overlapping */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #ffde7d;
+        }
+        h2 {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        input, select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            background: #444;
+            color: white;
+        }
+        button {
+            background: #6a11cb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #2575fc;
+        }
+
+        /* Styling Contact Me Button */
+        .contact-btn {
+            background-color: #25D366;
+            color: white;
+            font-size: 16px;
+            padding: 12px 30px;
+            border-radius: 25px;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: bold;
+            text-decoration: none;
+            border: 2px solid transparent;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .contact-btn:hover {
+            background-color: #128C7E;
+            transform: scale(1.05);
+            border-color: #128C7E;
+        }
+
+        /* Informasi Teks */
+        .info-text {
+            font-size: 14px;
+            color: #ffde7d;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        /* Positioning Contact Button */
+        .contact-btn-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+
+    <!-- Layar Pertama: Login -->
+    <div id="screen1" class="container" style="display: block;">
+        <h1>Venz Xiters</h1>
+        <p>Masukkan Username dan Password:</p>
+        <input type="text" id="username" placeholder="Username"><input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <!-- Layar Kedua: Pilihan Menu -->
+    <div id="screen2" class="container" style="display: none;">
+        <h1>Venz Xiters</h1>
+        <h2>Pilih Menu</h2>
+        <button onclick="showScreen('screen3')">Resolusi</button>
+        <button onclick="showScreen('screen4')">Mod Menu</button>
+        
+        <!-- Informasi Produk -->
+        <div class="info-text">
+            <p>Ini adalah injector untuk mengubah resolusi sekaligus Mod Menu Free Fire.</p>
+            <p>Produk ini sudah di uji coba dan sudah safe atau aman.</p>
+            <p>Produk ini tidak memiliki virus apapun yang dapat merusak hp Anda.</p>
+            <p>Jangan lupa join Komunitas kami👌</p>
+        </div>
+    </div>
+
+    <!-- Layar Ketiga: Resolusi Layar -->
+    <div id="screen3" class="container" style="display: none;">
+        <h1>Venz Xiters</h1>
+        <h2>Ubah Resolusi Layar</h2>
+        <p>Masukkan resolusi layar yang diinginkan:</p>
+        <input type="number" id="width" placeholder="Lebar layar (px)" min="100">
+        <input type="number" id="height" placeholder="Tinggi layar (px)" min="100">
+        <button onclick="applyResolution()">Terapkan</button>
+        <button onclick="showScreen('screen2')">Kembali</button>
+    </div>
+
+    <!-- Layar Keempat: Mod Menu (AIM BOT dan BYPASS VVIP) -->
+    <div id="screen4" class="container" style="display: none;">
+        <h1>Venz Xiters</h1>
+        <h2>Mod Menu</h2>
+        <p>Aktifkan atau nonaktifkan fitur berikut:</p>
+
+        <!-- AIM BOT Menu (Toggle Button) -->
+        <div class="cheat-menu">
+            <button id="aimbotButton" class="toggle-button" onclick="toggleAimbot()">AIM BOT: OFF</button>
+            <button id="bypassButton" class="toggle-button" onclick="toggleBypass()">BYPASS VVIP: OFF</button>
+            
+            <!-- Slider untuk Kecepatan AIMBOT (Stage Level) -->
+            <div class="slider-container">
+                <label for="aimbot-speed" class="slider-label">Kecepatan AIM BOT</label>
+                <input type="range" id="aimbot-speed" class="slider" min="1" max="10" value="5">
+                <span class="slider-label">Level: <span id="aimbot-speed-value">5</span></span>
+            </div>
+        </div>
+
+        <button onclick="showScreen('screen2')">Kembali</button>
+    </div>
+
+    <!-- Contact Me Button positioned at bottom center -->
+    <div class="contact-btn-container">
+        <a href="https://wa.me/+6285700513821" target="_blank" class="contact-btn">Contact Me</a>
+    </div>
+
+    <script>
+        // Fungsi Login
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (username === 'Venz11' && password === '112211') {
+                showScreen('screen2');
+            } else {
+                alert('Username atau password salah!');
+            }
+        }
+
+        // Fungsi untuk menampilkan layar tertentu
+        function showScreen(screenId) {
+            const screens = document.querySelectorAll('.container');
+            screens.forEach(screen => screen.style.display = 'none');
+            document.getElementById(screenId).style.display = 'block';
+        }
+
+        // Fungsi untuk menerapkan resolusi layar
+        function applyResolution() {
+            const width = document.getElementById('width').value;
+            const height = document.getElementById('height').value;
+            if (width && height) {
+                alert(`Resolusi layar diubah menjadi ${width}x${height}px`);
+            } else {
+                alert('Harap masukkan lebar dan tinggi layar!');
+            }
+        }
+
+        // Fungsi toggle AIM BOT (On/Off)
+        function toggleAimbot() {
+            const aimbotButton = document.getElementById('aimbotButton');
+            if (aimbotButton.classList.contains('on')) {
+                aimbotButton.classList.remove('on');
+                aimbotButton.textContent = "AIM BOT: OFF";
+            } else {
+                aimbotButton.classList.add('on');
+                aimbotButton.textContent = "AIM BOT: ON";
+            }
+        }
+
+        // Fungsi toggle BYPASS VVIP (On/Off)
+        function toggleBypass() {
+            const bypassButton = document.getElementById('bypassButton');
+            if (bypassButton.classList.contains('on')) {
+                bypassButton.classList.remove('on');
+                bypassButton.textContent = "BYPASS VVIP: OFF";
+            } else {
+                bypassButton.classList.add('on');
+                bypassButton.textContent = "BYPASS VVIP: ON";
+            }
+        }
+
+        // Update nilai kecepatan AIMBOT berdasarkan slider
+        const aimbotSpeedSlider = document.getElementById('aimbot-speed');
+        const aimbotSpeedValue = document.getElementById('aimbot-speed-value');
+        aimbotSpeedSlider.addEventListener('input', function() {
+            aimbotSpeedValue.textContent = aimbotSpeedSlider.value;
+        });
+    </script>
+</body>
+</html>
